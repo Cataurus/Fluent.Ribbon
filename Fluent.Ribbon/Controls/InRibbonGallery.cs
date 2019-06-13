@@ -905,14 +905,10 @@ namespace Fluent
         /// <inheritdoc />
         public event EventHandler Scaled;
 
-        /// <summary>
-        /// Occurs when context menu is opened
-        /// </summary>
+        /// <inheritdoc />
         public event EventHandler DropDownOpened;
 
-        /// <summary>
-        /// Occurs when context menu is closed
-        /// </summary>
+        /// <inheritdoc />
         public event EventHandler DropDownClosed;
 
         #endregion
@@ -925,11 +921,13 @@ namespace Fluent
         static InRibbonGallery()
         {
             var type = typeof(InRibbonGallery);
+
+            DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
+            SelectedItemProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, CoerceSelectedItem));
+
             ToolTipService.Attach(type);
             PopupService.Attach(type);
             ContextMenuService.Attach(type);
-            DefaultStyleKeyProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(type));
-            SelectedItemProperty.OverrideMetadata(type, new FrameworkPropertyMetadata(null, CoerceSelectedItem));
         }
 
         // Coerce selected item
